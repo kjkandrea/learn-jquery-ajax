@@ -4,10 +4,17 @@ const AJAX_CONFIG = {
 }
 
 class Api {
-  constructor () {
+  useLegacy = false;
+  /**
+   * @param legacy : boolean
+   */
+  constructor (legacy= false) {
+    console.log('legacy : %s', legacy)
+    this.useLegacy = legacy
     this.config = AJAX_CONFIG
   }
-  _ajax({ method, url }, callback) {
+
+  legacy({ method, url }, callback) {
     /**
      * callback 이 들어오면 ? async : false
      * callback 이 들어오지 않으면? async : true
@@ -16,6 +23,7 @@ class Api {
      * 2. 어떻게 async : true 가 가능한가? 내부적으로 구현이 어떻게 되어있지?
      */
     const async = !!callback;
+    console.log('async : %s', async)
     const ajax = jQuery.ajax({
       method,
       async,
@@ -29,14 +37,25 @@ class Api {
     return async ? ajax : ajax.responseJSON;
   }
 
+  tobe({ method, url }, callback) {
+    return jQuery.ajax({
+      method,
+      async: true,
+      ...this.config,
+      url: this.config.url + url,
+      success(data, status, { responseJSON }) {
+        if (callback !== null) callback(responseJSON)
+      }
+    })
+  }
+
   get(url, callback = null) {
-    return this._ajax({
+    const request = {
       method: 'GET',
       url,
-    }, callback)
-  }
-  post() {
+    }
 
+    return this.useLegacy ? this.legacy(request, callback) : this.tobe(request, callback)
   }
 }
 
