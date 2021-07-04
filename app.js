@@ -1,13 +1,14 @@
-import model from './model/index.js'
+import api from './api.js'
 
 $(function(){
   const app = {
     initiate() {
       this.getData()
     },
-    async getData() {
-      const data = await model.get()
-      console.log(data)
+    getData() {
+      api.get('/posts/1', res => {
+        console.log(res)
+      })
     }
   }
 
