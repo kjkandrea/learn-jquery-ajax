@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "json-server --watch db.json --port 3004 || lite-server index.html"
+    "serve":  "lite-server index.html",
+    "serve:api": "node server.js"
   },
   "repository": {
     "type": "git",
