@@ -1,8 +1,15 @@
 import model from './model/index.js'
 
 $(function(){
-  console.log(jQuery)
-  console.log($)
+  const app = {
+    initiate() {
+      this.getData()
+    },
+    async getData() {
+      const data = await model.get()
+      console.log(data)
+    }
+  }
 
-  console.log(model.data)
+  app.initiate.call(app)
 })
