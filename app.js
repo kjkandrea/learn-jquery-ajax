@@ -6,17 +6,15 @@ $(function(){
       posts: null
     },
     initiate() {
-      this.syncCall()
       this.asyncCall()
+      this.asyncCallback()
     },
-    syncCall() {
-      const res = api.get('/posts/1')
-      console.log('syncCall : ')
+    async asyncCall() {
+      const res = await api.get('/posts/1')
       console.log(res)
     },
-    asyncCall() {
+    asyncCallback() {
       api.get('/posts/1', res => {
-        console.log('asyncCall(callback) : ')
         console.log(res)
       })
     },

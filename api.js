@@ -59,5 +59,5 @@ class Api {
   }
 }
 
-export default new Api(true);
+export default new Api(false);
 
