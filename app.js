@@ -8,7 +8,6 @@ $(function(){
     initiate() {
       this.syncCall()
       this.asyncCall()
-      this.plainSyncCall()
     },
     syncCall() {
       const res = api.get('/posts/1')
@@ -21,15 +20,6 @@ $(function(){
         console.log(res)
       })
     },
-    plainSyncCall() {
-      const res =  $.ajax({
-        method: 'GET',
-        url: 'http://localhost:3004/posts/1',
-        async: false
-      })
-      console.log('plainSyncCall : ')
-      console.log(res.responseJSON)
-    }
   }
 
   app.initiate.call(app)
